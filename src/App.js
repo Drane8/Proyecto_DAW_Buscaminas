@@ -24,7 +24,8 @@ class App extends Component {
           </Switch>
         </div>
         <div className="container">
-          <div className="container-fluid bg-footer text-center py-3">Desarrollado por Daniel Garcia</div>
+          <div className="container-fluid bg-footer text-center py-3">Desarrollado por Daniel Garcia<br/>
+          <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></div>
         </div>
       </div>
     );

@@ -13,13 +13,9 @@ export class Button extends Component {
   render() {
     const { to, texto, margen } = this.props;
     return (
-      <div className="row justify-content-center">
-        <div className="col-4 text-center">
           <Link className={`btn btn-info btn-block btn-lg ${margen}`} to={to} role="button">
             {texto}
           </Link>
-        </div>
-      </div>
     );
   }
 }
