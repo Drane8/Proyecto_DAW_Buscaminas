@@ -9,6 +9,26 @@ import { NotFound } from "./paginas/NotFound";
 import cabecera from "./img/cabecera.jpg";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dificultad: "Facil",
+    };
+    this.cambiarFacil = this.cambiarFacil.bind(this);
+    this.cambiarMedio = this.cambiarMedio.bind(this);
+    this.cambiarDificil = this.cambiarDificil.bind(this);
+  }
+
+  cambiarFacil() {
+    this.setState(() => ({ dificultad: "Facil" }));
+  }
+  cambiarMedio() {
+    this.setState(() => ({ dificultad: "Medio" }));
+  }
+  cambiarDificil() {
+    this.setState(() => ({ dificultad: "Dificil" }));
+  }
+
   render() {
     return (
       <div className="App container">
@@ -17,15 +37,40 @@ class App extends Component {
         </div>
         <div className="container">
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/dificultad" component={Dificultad} />
-            <Route exact path="/jugar" component={Juego} />
+            <Route
+              exact
+              path="/"
+              render={(props) => <Home dificultad={this.state.dificultad} />}
+            />
+            <Route
+              exact
+              path="/dificultad"
+              render={(props) => (
+                <Dificultad
+                  cambiarFacil={this.cambiarFacil}
+                  cambiarMedio={this.cambiarMedio}
+                  cambiarDificil={this.cambiarDificil}
+                />
+              )}
+            />
+            <Route exact path="/jugar" render={props=><Juego dificultad={this.state.dificultad} />} />
             <Route component={NotFound} />
           </Switch>
         </div>
         <div className="container">
-          <div className="container-fluid bg-footer text-center py-3">Desarrollado por Daniel Garcia<br/>
-          <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></div>
+          <div className="container-fluid bg-footer text-center py-3">
+            Desarrollado por Daniel Garcia
+            <br />
+            <a
+              rel="license"
+              href="http://creativecommons.org/licenses/by-sa/4.0/"
+            >
+              <img
+                alt="Creative Commons License"
+                src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"
+              />
+            </a>
+          </div>
         </div>
       </div>
     );
