@@ -1,32 +1,29 @@
-import React from "react";
-import { Button } from "../componentes/ButtonRedirect";
+import React, { Component } from "react";
+import {Tablero} from '../componentes/Tablero';
+import PropTypes from "prop-types";
 
-export const Juego = () => (
-  <div className="container bg-main py-5">
-    <div className="row">
-      <div className="col">Minas: ##</div>
-      <div className="col">
-        <Button to="/" texto="Menu principal" />
-      </div>
-    </div>
-    <div className="tablero mt-4">
-      <table>
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-      </table>
-    </div>
-  </div>
-);
+export class Juego extends Component {
+
+  static propTypes = {
+    alto: PropTypes.number,
+    ancho: PropTypes.number,
+    minas: PropTypes.number,
+  }
+  componentWillMount() {
+    if (this.props.dificultad === "Facil") {
+      this.setState(() => ({ alto: 8, ancho: 8, minas: 10 }));
+    } else if (this.props.dificultad === "Medio") {
+      this.setState(() => ({ alto: 16, ancho: 16, minas: 40 }));
+    } else {
+      this.setState(() => ({ alto: 16, ancho: 16, minas: 99 }));
+    }
+  }
+
+  render() {
+    const { alto, ancho, minas } = this.state;
+    console.log(alto, ancho, minas);
+    return (
+          <Tablero alto={alto} ancho={ancho} minas={minas}/>
+    );
+  }
+}
