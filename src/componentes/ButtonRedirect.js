@@ -11,9 +11,9 @@ export class Button extends Component {
   };
 
   render() {
-    const { to, texto, margen } = this.props;
+    const { to, texto, margen, onclick } = this.props;
     return (
-          <Link className={`btn btn-info btn-block btn-lg ${margen}`} to={to} role="button">
+          <Link className={`btn btn-info btn-block btn-lg ${margen}`} to={to} role="button" onClick={onclick}>
             {texto}
           </Link>
     );
