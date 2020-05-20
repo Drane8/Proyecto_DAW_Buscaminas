@@ -34,7 +34,65 @@ export class Tablero extends Component {
     }
     return info;
   }
-  
+
+  contarMinasCerca(alto, ancho, info) {
+    for (let i = 0; i < alto; i++) {
+      for (let j = 0; j < ancho; j++) {
+        if (!info[i][j].mina) {
+          info[i][j].minasCerca = this.comprobarAlrededor(i, j, info, alto, ancho);
+        }
+      }
+    }
+
+    return info;
+  }
+
+  comprobarAlrededor(x, y, info, alto, ancho) {
+    let minas = null;
+
+    //arriba izquierda
+    if (x > 0 && y > 0) {
+      if (info[x - 1][y - 1].mina) minas++;
+    }
+
+    //arriba
+    if (x > 0) {
+      if (info[x - 1][y].mina) minas++;
+    }
+
+    //arriba derecha
+    if (x > 0 && y < ancho - 1) {
+      if (info[x - 1][y + 1].mina) minas++;
+    }
+
+    //derecha
+    if (y < ancho - 1) {
+      if (info[x][y + 1].mina) minas++;
+    }
+
+    //abajo derecha
+    if (x < alto - 1 && y < ancho - 1) {
+      if (info[x + 1][y + 1].mina) minas++;
+    }
+
+    //abajo
+    if (x < alto - 1) {
+      if (info[x + 1][y].mina) minas++;
+    }
+
+    //abajo izquierda
+    if (x < alto - 1 && y > 0) {
+      if (info[x + 1][y - 1].mina) minas++;
+    }
+
+    //izquierda
+    if (y > 0) {
+      if (info[x][y - 1].mina) minas++;
+    }
+
+    return minas;
+  }
+
   crearInfoInicial(alto, ancho, minas) {
     let info = [];
     for (let i = 0; i < alto; i++) {
@@ -49,6 +107,7 @@ export class Tablero extends Component {
       }
     }
     info = this.repartirMinas(alto, ancho, minas, info);
+    info = this.contarMinasCerca(alto,ancho,info);
     return info;
   }
 
