@@ -9,6 +9,7 @@ export class Juego extends Component {
     ancho: PropTypes.number,
     minas: PropTypes.number,
   }
+  
   componentWillMount() {
     if (this.props.dificultad === "Facil") {
       this.setState(() => ({ alto: 8, ancho: 8, minas: 10 }));
