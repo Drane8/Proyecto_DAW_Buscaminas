@@ -36,61 +36,27 @@ export class Tablero extends Component {
   }
 
   contarMinasCerca(alto, ancho, info) {
+    //recorro el tablero y compruebo las casillas que no son minas
     for (let i = 0; i < alto; i++) {
       for (let j = 0; j < ancho; j++) {
         if (!info[i][j].mina) {
-          info[i][j].minasCerca = this.comprobarAlrededor(i, j, info, alto, ancho);
+          let posX = info[i][j].x;
+          let posY = info[i][j].y;
+
+          //compruebo las casillas de alrededor de la casilla actual
+          //en caso de que sea mina sumo 1 a sus minasCerca
+          for (let x = posX - 1; x <= posX + 1; x++) {
+            for (let y = posY - 1; y <= posY + 1; y++) {
+              if (x >= 0 && x < ancho && y >= 0 && y < alto) {
+                if (info[x][y].mina) info[i][j].minasCerca++;
+              }
+            }
+          }
         }
       }
     }
 
     return info;
-  }
-
-  comprobarAlrededor(x, y, info, alto, ancho) {
-    let minas = null;
-
-    //arriba izquierda
-    if (x > 0 && y > 0) {
-      if (info[x - 1][y - 1].mina) minas++;
-    }
-
-    //arriba
-    if (x > 0) {
-      if (info[x - 1][y].mina) minas++;
-    }
-
-    //arriba derecha
-    if (x > 0 && y < ancho - 1) {
-      if (info[x - 1][y + 1].mina) minas++;
-    }
-
-    //derecha
-    if (y < ancho - 1) {
-      if (info[x][y + 1].mina) minas++;
-    }
-
-    //abajo derecha
-    if (x < alto - 1 && y < ancho - 1) {
-      if (info[x + 1][y + 1].mina) minas++;
-    }
-
-    //abajo
-    if (x < alto - 1) {
-      if (info[x + 1][y].mina) minas++;
-    }
-
-    //abajo izquierda
-    if (x < alto - 1 && y > 0) {
-      if (info[x + 1][y - 1].mina) minas++;
-    }
-
-    //izquierda
-    if (y > 0) {
-      if (info[x][y - 1].mina) minas++;
-    }
-
-    return minas;
   }
 
   crearInfoInicial(alto, ancho, minas) {
@@ -102,12 +68,12 @@ export class Tablero extends Component {
           x: i,
           y: j,
           mina: false,
-          minasCerca: null
+          minasCerca: null,
         };
       }
     }
     info = this.repartirMinas(alto, ancho, minas, info);
-    info = this.contarMinasCerca(alto,ancho,info);
+    info = this.contarMinasCerca(alto, ancho, info);
     return info;
   }
 

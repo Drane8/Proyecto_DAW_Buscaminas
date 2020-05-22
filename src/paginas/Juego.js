@@ -22,7 +22,6 @@ export class Juego extends Component {
 
   render() {
     const { alto, ancho, minas } = this.state;
-    console.log(alto, ancho, minas);
     return (
           <Tablero alto={alto} ancho={ancho} minas={minas}/>
     );
