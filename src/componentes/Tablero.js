@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "../componentes/ButtonRedirect";
 import PropTypes from "prop-types";
+import PopUpInstrucciones from "./PopUpInstrucciones";
 
 export class Tablero extends Component {
   state = {
@@ -93,9 +94,12 @@ export class Tablero extends Component {
     return (
       <div className="container bg-main py-5">
         <div className="row">
-          <div className="col">Minas: {this.state.minasRestantes}</div>
-          <div className="col">
-            <Button to="/" texto="Menu principal" />
+          <div className="col-3">
+            <Button to="/" texto="Menu" />
+          </div>
+          <div className="col text-center mt-auto">Minas: {this.state.minasRestantes}</div>
+          <div className="col-3">
+            <PopUpInstrucciones/>
           </div>
         </div>
         <div

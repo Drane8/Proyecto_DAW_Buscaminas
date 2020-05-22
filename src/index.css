@@ -39,6 +39,28 @@ code {
   text-align: center;
 }
 
+.modaljs {
+  font-size: 1rem;
+}
+.modaljs > .header {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 5px;
+}
+.modaljs > .content {
+  width: 100%;
+  padding: 10px 5px;
+  text-align: left;
+}
+.modaljs > .actions {
+  width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+  text-align: center;
+}
+
 @media (max-width: 992px) {
   .celda{
     width: 39px;

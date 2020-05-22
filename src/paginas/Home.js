@@ -1,5 +1,6 @@
 import React,{Component} from "react";
 import { Button } from "../componentes/ButtonRedirect";
+import PopUpInstrucciones from "../componentes/PopUpInstrucciones";
 
 export class Home extends Component{
   render(){
@@ -13,6 +14,11 @@ export class Home extends Component{
     <div className="row justify-content-center">
       <div className="col-4 text-center">
         <Button to="/dificultad" texto={`Elegir dificultad: ${this.props.dificultad}`} margen="mt-4 mb-5" />
+      </div>
+    </div>
+    <div className="row justify-content-center">
+      <div className="col-4 text-center">
+        <PopUpInstrucciones/>
       </div>
     </div>
   </div>
