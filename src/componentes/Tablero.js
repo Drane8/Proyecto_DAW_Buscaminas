@@ -78,11 +78,11 @@ export class Tablero extends Component {
   }
 
   creartablero(array) {
-    return array.map((datarow) => {
-      return datarow.map((dataitem) => {
+    return array.map((fila) => {
+      return fila.map((casilla) => {
         return (
-          <div key={dataitem.x * datarow.length + dataitem.y} className="celda">
-            {dataitem.mina ? "M" : dataitem.minasCerca}
+          <div key={casilla.x * fila.length + casilla.y} className="celda">
+            {casilla.mina ? "M" : casilla.minasCerca}
           </div>
         );
       });
