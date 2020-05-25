@@ -20,23 +20,29 @@ code {
   background-color: #e9ecef;
 }
 
-.main{
+.main {
   height: 500px;
 }
-.tablero{
+.tablero {
   max-width: 722px;
   margin-right: auto !important;
   margin-left: auto !important;
-  border: 1px solid black;
+  border: 1px solid #e9ecef;
 }
-.tablero-facil{
+.tablero-facil {
   max-width: 362px;
 }
-.celda{
+.celda {
   width: 45px;
   height: 45px;
-  border: 1px solid black;
+  border: 1px solid #e9ecef;
   text-align: center;
+  background-color: #222222;
+  color: white;
+  border-radius: 6px;
+}
+.mostrada{
+  background-color: #585858;
 }
 
 .modaljs {
@@ -62,27 +68,27 @@ code {
 }
 
 @media (max-width: 992px) {
-  .celda{
+  .celda {
     width: 39px;
-    height:39px;
+    height: 39px;
   }
-  .tablero{
+  .tablero {
     max-width: 626px;
   }
-  .tablero-facil{
+  .tablero-facil {
     max-width: 314px;
   }
 }
 
 @media (max-width: 768px) {
-  .celda{
+  .celda {
     width: 28px;
-    height:28px;
+    height: 28px;
   }
-  .tablero{
+  .tablero {
     max-width: 450px;
   }
-  .tablero-facil{
+  .tablero-facil {
     max-width: 226px;
   }
 }

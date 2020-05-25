@@ -10,7 +10,7 @@ export class Tablero extends Component {
       this.props.ancho,
       this.props.minas
     ),
-    gameStatus: false,
+    perdido: false,
     minasRestantes: this.props.minas,
   };
 
@@ -70,6 +70,8 @@ export class Tablero extends Component {
           y: j,
           mina: false,
           minasCerca: null,
+          mostrada: false,
+          marcadaBandera: false,
         };
       }
     }
@@ -78,12 +80,37 @@ export class Tablero extends Component {
     return info;
   }
 
+  valorCasilla(casilla) {
+    if (casilla.marcadaBandera) {
+      return "B";
+    } else if (casilla.mostrada) {
+      if (casilla.mina) {
+        return "M";
+      } else if (casilla.minasCerca > 0) {
+        return casilla.minasCerca;
+      }
+    }
+    return null;
+  }
+
+  clickIzquierdo(x, y) {
+    let info = this.state.infoTablero;
+    info[x][y].mostrada = true;
+    this.setState({ infoTablero: info });
+  }
+
   creartablero(array) {
     return array.map((fila) => {
       return fila.map((casilla) => {
         return (
-          <div key={casilla.x * fila.length + casilla.y} className="celda">
-            {casilla.mina ? "M" : casilla.minasCerca}
+          <div
+            key={casilla.x * fila.length + casilla.y}
+            className={"celda" + (casilla.mostrada ? " mostrada" : "")}
+            onClick={() => {
+              this.clickIzquierdo(casilla.x, casilla.y);
+            }}
+          >
+            {this.valorCasilla(casilla)}
           </div>
         );
       });
@@ -97,9 +124,11 @@ export class Tablero extends Component {
           <div className="col-3">
             <Button to="/" texto="Menu" />
           </div>
-          <div className="col text-center mt-auto">Minas: {this.state.minasRestantes}</div>
+          <div className="col text-center mt-auto">
+            Minas: {this.state.minasRestantes}
+          </div>
           <div className="col-3">
-            <PopUpInstrucciones/>
+            <PopUpInstrucciones />
           </div>
         </div>
         <div
