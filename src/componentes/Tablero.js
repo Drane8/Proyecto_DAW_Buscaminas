@@ -10,7 +10,7 @@ export class Tablero extends Component {
       this.props.ancho,
       this.props.minas
     ),
-    perdido: false,
+    fin: false,
     minasRestantes: this.props.minas,
   };
 
@@ -95,8 +95,36 @@ export class Tablero extends Component {
 
   clickIzquierdo(x, y) {
     let info = this.state.infoTablero;
-    info[x][y].mostrada = true;
+    let casilla = info[x][y];
+
+    if (!this.state.fin && !casilla.marcadaBandera) {
+      casilla.mostrada = true;
+    }
+
     this.setState({ infoTablero: info });
+  }
+
+  clickDerecho(event, x, y) {
+    event.preventDefault();
+    let info = this.state.infoTablero;
+    let casilla = info[x][y];
+    let minas = this.state.minasRestantes;
+
+    if (!this.state.fin && !casilla.mostrada) {
+      if (!casilla.marcadaBandera && minas > 0) {
+        casilla.marcadaBandera = true;
+        minas--;
+      } else if (casilla.marcadaBandera) {
+        casilla.marcadaBandera = false;
+        minas++;
+      }
+    }
+
+    if (minas === 0) {
+      //comprobar si se ha ganado
+    }
+
+    this.setState({ infoTablero: info, minasRestantes: minas });
   }
 
   creartablero(array) {
@@ -109,6 +137,7 @@ export class Tablero extends Component {
             onClick={() => {
               this.clickIzquierdo(casilla.x, casilla.y);
             }}
+            onContextMenu={(e) => this.clickDerecho(e, casilla.x, casilla.y)}
           >
             {this.valorCasilla(casilla)}
           </div>
@@ -133,9 +162,7 @@ export class Tablero extends Component {
         </div>
         <div
           className={
-            this.props.ancho === 8
-              ? "row mt-4 tablero tablero-facil"
-              : "row mt-4 tablero "
+            "row mt-4 tablero" + (this.props.ancho === 8 ? " tablero-facil" : "")
           }
         >
           {this.creartablero(this.state.infoTablero)}
