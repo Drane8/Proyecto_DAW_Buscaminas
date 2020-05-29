@@ -8,7 +8,7 @@ export class Tablero extends Component {
     infoTablero: this.crearInfoInicial(
       this.props.alto,
       this.props.ancho,
-      this.props.minas
+      this.props.mina
     ),
     fin: false,
     minasRestantes: this.props.minas,
@@ -98,7 +98,7 @@ export class Tablero extends Component {
       for (let j = y - 1; j <= y + 1; j++) {
         if (i >= 0 && i < this.props.ancho && j >= 0 && j < this.props.alto) {
           let casilla = info[i][j];
-          if (!casilla.marcada && !casilla.mostrada && !casilla.mina) {
+          if (!casilla.mostrada && !casilla.marcadaBandera) {
             casilla.mostrada = true;
             if (casilla.minasCerca === null) {
               info = this.mostrarVacias(casilla.x, casilla.y, info);
