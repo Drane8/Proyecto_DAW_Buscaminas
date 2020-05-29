@@ -93,15 +93,40 @@ export class Tablero extends Component {
     return null;
   }
 
+  mostrarVacias(x, y, info) {
+    for (let i = x - 1; i <= x + 1; i++) {
+      for (let j = y - 1; j <= y + 1; j++) {
+        if (i >= 0 && i < this.props.ancho && j >= 0 && j < this.props.alto) {
+          let casilla = info[i][j];
+          if (!casilla.marcada && !casilla.mostrada && !casilla.mina) {
+            casilla.mostrada = true;
+            if (casilla.minasCerca === null) {
+              info = this.mostrarVacias(casilla.x, casilla.y, info);
+            }
+          }
+        }
+      }
+    }
+
+    return info;
+  }
+
   clickIzquierdo(x, y) {
     let info = this.state.infoTablero;
     let casilla = info[x][y];
+    let final = this.state.fin;
 
-    if (!this.state.fin && !casilla.marcadaBandera) {
+    if (!this.state.fin && !casilla.marcadaBandera && !casilla.mostrada) {
       casilla.mostrada = true;
+      if (casilla.mina) {
+        final = true;
+        alert("Has perdido");
+      } else if (casilla.minasCerca === null) {
+        info = this.mostrarVacias(casilla.x, casilla.y, info);
+      }
     }
 
-    this.setState({ infoTablero: info });
+    this.setState({ infoTablero: info, fin: final });
   }
 
   clickDerecho(event, x, y) {
@@ -162,7 +187,8 @@ export class Tablero extends Component {
         </div>
         <div
           className={
-            "row mt-4 tablero" + (this.props.ancho === 8 ? " tablero-facil" : "")
+            "row mt-4 tablero" +
+            (this.props.ancho === 8 ? " tablero-facil" : "")
           }
         >
           {this.creartablero(this.state.infoTablero)}
