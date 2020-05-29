@@ -8,7 +8,7 @@ export class Tablero extends Component {
     infoTablero: this.crearInfoInicial(
       this.props.alto,
       this.props.ancho,
-      this.props.mina
+      this.props.minas
     ),
     fin: false,
     minasRestantes: this.props.minas,
