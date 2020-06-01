@@ -33,15 +33,17 @@ code {
   max-width: 362px;
 }
 .celda {
+  justify-content: center;
+  align-items: center;
+  display: flex;
   width: 45px;
   height: 45px;
   border: 1px solid #e9ecef;
-  text-align: center;
   background-color: #222222;
   color: white;
   border-radius: 6px;
 }
-.mostrada{
+.mostrada {
   background-color: #585858;
 }
 
@@ -65,6 +67,21 @@ code {
   padding: 10px 5px;
   margin: auto;
   text-align: center;
+}
+
+.resultado{
+    position: absolute;
+    top: 50%;
+    background-color: rgba(255, 255, 255, 0.747);
+    width: 150px;
+    text-align: center;
+    border-radius: 15px;
+    font-weight: bold;
+    left: calc(50% - 75px);
+}
+
+.oculto{
+  left: -32000px;
 }
 
 @media (max-width: 992px) {

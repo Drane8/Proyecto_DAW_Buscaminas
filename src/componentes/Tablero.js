@@ -12,6 +12,7 @@ export class Tablero extends Component {
     ),
     fin: false,
     minasRestantes: this.props.minas,
+    resultado: "",
   };
 
   static propTypes = {
@@ -19,6 +20,54 @@ export class Tablero extends Component {
     ancho: PropTypes.number,
     minas: PropTypes.number,
   };
+
+  posMinas(info) {
+    let minas = "";
+
+    for (let i = 0; i < this.props.alto; i++) {
+      for (let j = 0; j < this.props.ancho; j++) {
+        if (info[i][j].mina) {
+          minas += "c:" + info[i][j].x + info[i][j].y + ".";
+        }
+      }
+    }
+    return minas;
+  }
+
+  posBanderas(info) {
+    let banderas = "";
+
+    for (let i = 0; i < this.props.alto; i++) {
+      for (let j = 0; j < this.props.ancho; j++) {
+        if (info[i][j].marcadaBandera) {
+          banderas += "c:" + info[i][j].x + info[i][j].y + ".";
+        }
+      }
+    }
+    return banderas;
+  }
+
+  ocultasRestantes(info) {
+    let ocultas = 0;
+
+    for (let i = 0; i < this.props.alto; i++) {
+      for (let j = 0; j < this.props.ancho; j++) {
+        if (!info[i][j].mostrada) {
+          ocultas++;
+        }
+      }
+    }
+    return ocultas;
+  }
+
+  mostrarTablero(info) {
+    for (let i = 0; i < this.props.alto; i++) {
+      for (let j = 0; j < this.props.ancho; j++) {
+        info[i][j].mostrada = true;
+      }
+    }
+    return info;
+  }
 
   repartirMinas(alto, ancho, minas, info) {
     let posX = 0;
@@ -115,18 +164,26 @@ export class Tablero extends Component {
     let info = this.state.infoTablero;
     let casilla = info[x][y];
     let final = this.state.fin;
+    let resul = this.state.resultado;
 
-    if (!this.state.fin && !casilla.marcadaBandera && !casilla.mostrada) {
+    if (!final && !casilla.marcadaBandera && !casilla.mostrada) {
       casilla.mostrada = true;
       if (casilla.mina) {
         final = true;
-        alert("Has perdido");
+        resul = "Has perdido";
+        info = this.mostrarTablero(info);
       } else if (casilla.minasCerca === null) {
         info = this.mostrarVacias(casilla.x, casilla.y, info);
       }
     }
 
-    this.setState({ infoTablero: info, fin: final });
+    if (this.ocultasRestantes(info) === this.props.minas) {
+      info = this.mostrarTablero(info);
+      final = true;
+      resul = "Has Ganado";
+    }
+
+    this.setState({ infoTablero: info, fin: final, resultado: resul });
   }
 
   clickDerecho(event, x, y) {
@@ -134,6 +191,8 @@ export class Tablero extends Component {
     let info = this.state.infoTablero;
     let casilla = info[x][y];
     let minas = this.state.minasRestantes;
+    let final = this.state.fin;
+    let resul = this.state.resultado;
 
     if (!this.state.fin && !casilla.mostrada) {
       if (!casilla.marcadaBandera && minas > 0) {
@@ -147,9 +206,19 @@ export class Tablero extends Component {
 
     if (minas === 0) {
       //comprobar si se ha ganado
+      if (this.posMinas(info) === this.posBanderas(info)) {
+        info = this.mostrarTablero(info);
+        final = true;
+        resul = "Has Ganado";
+      }
     }
 
-    this.setState({ infoTablero: info, minasRestantes: minas });
+    this.setState({
+      infoTablero: info,
+      minasRestantes: minas,
+      fin: final,
+      resultado: resul,
+    });
   }
 
   creartablero(array) {
@@ -192,6 +261,16 @@ export class Tablero extends Component {
           }
         >
           {this.creartablero(this.state.infoTablero)}
+        </div>
+        <div className={"resultado " + (this.state.fin ? "" : "oculto")}>
+          {this.state.resultado}
+          <br />
+          <button
+            className="btn btn-info mb-1 btn-sm"
+            onClick={() => window.location.reload(false)}
+          >
+            Volver a jugar
+          </button>
         </div>
       </div>
     );
