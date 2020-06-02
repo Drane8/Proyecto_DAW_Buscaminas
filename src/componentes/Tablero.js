@@ -19,6 +19,7 @@ export class Tablero extends Component {
     alto: PropTypes.number,
     ancho: PropTypes.number,
     minas: PropTypes.number,
+    dificultad: PropTypes.string
   };
 
   posMinas(info) {
@@ -260,7 +261,9 @@ export class Tablero extends Component {
             <Button to="/" texto="Menu" />
           </div>
           <div className="col text-center mt-auto">
-            Minas: {this.state.minasRestantes}
+            <b>Dificultad:</b> {this.props.dificultad}
+            <br/>
+            <b>Minas:</b> {this.state.minasRestantes}
           </div>
           <div className="col-3">
             <PopUpInstrucciones />

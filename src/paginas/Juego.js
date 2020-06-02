@@ -8,6 +8,7 @@ export class Juego extends Component {
     alto: PropTypes.number,
     ancho: PropTypes.number,
     minas: PropTypes.number,
+    dificultad: PropTypes.string
   }
   
   componentWillMount() {
@@ -23,7 +24,7 @@ export class Juego extends Component {
   render() {
     const { alto, ancho, minas } = this.state;
     return (
-          <Tablero alto={alto} ancho={ancho} minas={minas}/>
+          <Tablero alto={alto} ancho={ancho} minas={minas} dificultad={this.props.dificultad}/>
     );
   }
 }
