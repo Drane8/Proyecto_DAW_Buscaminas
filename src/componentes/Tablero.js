@@ -3,6 +3,9 @@ import { Button } from "../componentes/ButtonRedirect";
 import PropTypes from "prop-types";
 import PopUpInstrucciones from "./PopUpInstrucciones";
 
+import bandera from "../img/bandera.png";
+import mina from "../img/bomba.png";
+
 export class Tablero extends Component {
   state = {
     infoTablero: this.crearInfoInicial(
@@ -132,12 +135,12 @@ export class Tablero extends Component {
 
   valorCasilla(casilla) {
     if (casilla.marcadaBandera) {
-      return "B";
+      return <img src={bandera} alt="Bandera"></img>;
     } else if (casilla.mostrada) {
       if (casilla.mina) {
-        return "M";
+        return <img src={mina} alt="Mina"></img>;
       } else if (casilla.minasCerca > 0) {
-        return casilla.minasCerca;
+        return <b>{casilla.minasCerca}</b>;
       }
     }
     return null;
