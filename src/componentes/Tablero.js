@@ -16,14 +16,32 @@ export class Tablero extends Component {
     fin: false,
     minasRestantes: this.props.minas,
     resultado: "",
+    contadorOn: false,
+    segundos: 0,
   };
 
   static propTypes = {
     alto: PropTypes.number,
     ancho: PropTypes.number,
     minas: PropTypes.number,
-    dificultad: PropTypes.string
+    dificultad: PropTypes.string,
   };
+
+  empezarContador() {
+    this.setState({
+      contadorOn: true,
+    });
+    this.contador = setInterval(() => {
+      this.setState({
+        segundos: this.state.segundos + 1,
+      });
+    }, 1000);
+  }
+
+  pararContador() {
+    this.setState({ contadorOn: false });
+    clearInterval(this.contador);
+  }
 
   posMinas(info) {
     let minas = "";
@@ -170,12 +188,17 @@ export class Tablero extends Component {
     let final = this.state.fin;
     let resul = this.state.resultado;
 
+    if (!this.state.contadorOn) {
+      this.empezarContador();
+    }
+
     if (!final && !casilla.marcadaBandera && !casilla.mostrada) {
       casilla.mostrada = true;
       if (casilla.mina) {
         final = true;
         resul = "Has perdido";
         info = this.mostrarTablero(info);
+        this.pararContador();
       } else if (casilla.minasCerca === null) {
         info = this.mostrarVacias(casilla.x, casilla.y, info);
       }
@@ -185,6 +208,7 @@ export class Tablero extends Component {
       info = this.mostrarTablero(info);
       final = true;
       resul = "Has Ganado";
+      this.pararContador();
     }
 
     this.setState({ infoTablero: info, fin: final, resultado: resul });
@@ -197,6 +221,10 @@ export class Tablero extends Component {
     let minas = this.state.minasRestantes;
     let final = this.state.fin;
     let resul = this.state.resultado;
+
+    if (!this.state.contadorOn) {
+      this.empezarContador();
+    }
 
     if (!this.state.fin && !casilla.mostrada) {
       if (!casilla.marcadaBandera && minas > 0) {
@@ -214,6 +242,7 @@ export class Tablero extends Component {
         info = this.mostrarTablero(info);
         final = true;
         resul = "Has Ganado";
+        this.pararContador();
       }
     }
 
@@ -243,6 +272,7 @@ export class Tablero extends Component {
       });
     });
   }
+
   volverJugar() {
     this.setState({
       infoTablero: this.crearInfoInicial(
@@ -253,6 +283,7 @@ export class Tablero extends Component {
       fin: false,
       minasRestantes: this.props.minas,
       resultado: "",
+      segundos: 0,
     });
   }
 
@@ -263,10 +294,12 @@ export class Tablero extends Component {
           <div className="col-3">
             <Button to="/" texto="Menu" />
           </div>
-          <div className="col text-center mt-auto">
-            <b>Dificultad:</b> {this.props.dificultad}
-            <br/>
-            <b>Minas:</b> {this.state.minasRestantes}
+          <div className="col text-center mt-auto row">
+          <div className="col"></div>
+            <div className="col-4"><b>Dificultad:</b> {this.props.dificultad}</div>
+            <div className="col-1">{this.state.segundos}</div>
+            <div className="col-4"><b>Minas:</b> {this.state.minasRestantes}</div>
+          <div className="col"></div>
           </div>
           <div className="col-3">
             <PopUpInstrucciones />
@@ -282,9 +315,11 @@ export class Tablero extends Component {
         </div>
         <div className={"resultado " + (this.state.fin ? "" : "oculto")}>
           {this.state.resultado}
+          
+          {this.state.resultado === "Has Ganado" ? "\nTiempo: " + this.state.segundos : ""}
           <br />
           <button
-            className="btn btn-info mb-1 btn-sm"
+            className="btn btn-info my-1 btn-sm"
             onClick={() => this.volverJugar()}
           >
             Volver a jugar
