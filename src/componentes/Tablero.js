@@ -188,7 +188,7 @@ export class Tablero extends Component {
     let final = this.state.fin;
     let resul = this.state.resultado;
 
-    if (!this.state.contadorOn) {
+    if (!this.state.contadorOn && !final) {
       this.empezarContador();
     }
 
@@ -222,7 +222,7 @@ export class Tablero extends Component {
     let final = this.state.fin;
     let resul = this.state.resultado;
 
-    if (!this.state.contadorOn) {
+    if (!this.state.contadorOn  && !final) {
       this.empezarContador();
     }
 
