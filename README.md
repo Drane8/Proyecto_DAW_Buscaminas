@@ -4,10 +4,12 @@ Este es un proyecto realizado como proyecto de fin de ciclo, el cual he aprovech
 
 ### Pre-requisitos 📋
 
-Necesitamos tener instalado los siguientes componentes:
+Necesitamos tener instalados los siguientes componentes:
 
 Node.js
+
 Git
+
 ReactJS
 
 
