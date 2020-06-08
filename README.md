@@ -18,15 +18,20 @@ ReactJS
 Abrimos la consola de bash en la ubicacion que queramos instalar el proyecto
 
 Una vez tengamos la terminal abierta ponemos el comando: 
+
 $ git clone https://github.com/Drane8/Proyecto_DAW_Buscaminas.git
 
 Con esto se nos descargara el proyecto, lo siguiente es entrar a la carpeta del proyecto desde la terminal e instalar npm mediante los siguientes comandos:
+
 $ cd Proyecto_DAW_Buscaminas/
+
 
 $ npm install
 
 Por último, podremos ver el proyecto en nuestro navegador usando el siguiente comando:
+
 $ npm start
+
 
 ## Despliegue 📦
 
