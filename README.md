@@ -5,7 +5,7 @@ Este es un proyecto realizado como proyecto de fin de ciclo, el cual he aprovech
 
 ### Página para ver la aplicación en ejecución
 
-[Buscaminas en react](https://react-buscaminas.netlify.app/)
+**[Buscaminas en react](https://react-buscaminas.netlify.app/)**
 
 ### Pre-requisitos 📋
 
