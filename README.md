@@ -1,6 +1,6 @@
 # Buscaminas en ReactJS
 
-Este es un proyecto realizado como proyecto de fin de ciclo, el cual he aprovechano para aprender React.
+Este es un proyecto realizado como proyecto de fin de ciclo, el cual he aprovechado para aprender React. Se trata del juego del buscaminas, cuenta con 3 dificultades.
 
 
 ### Página para ver la aplicación en ejecución
