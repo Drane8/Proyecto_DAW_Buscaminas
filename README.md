@@ -2,6 +2,11 @@
 
 Este es un proyecto realizado como proyecto de fin de ciclo, el cual he aprovechano para aprender React.
 
+
+### Página para ver la aplicación en ejecución
+
+[Buscaminas en react](https://react-buscaminas.netlify.app/)
+
 ### Pre-requisitos 📋
 
 Necesitamos tener instalados los siguientes componentes:
@@ -28,14 +33,11 @@ $ cd Proyecto_DAW_Buscaminas/
 
 $ npm install
 
+
 Por último, podremos ver el proyecto en nuestro navegador usando el siguiente comando:
 
 $ npm start
 
-
-## Despliegue 📦
-
-_Agrega notas adicionales sobre como hacer deploy_
 
 ## Autor ✒️
 
@@ -43,4 +45,4 @@ _Agrega notas adicionales sobre como hacer deploy_
 
 ## Expresiones de Gratitud 🎁
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este proyecto ha sido creado con [Create React App](https://github.com/facebook/create-react-app).
