@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 
 import { Link } from "react-router-dom";
 
+/**
+ * Componente que se encarga de crear un boton a traves
+ * del cual se redirige a una url
+ */
 export class Button extends Component {
   static propTypes = {
     to: PropTypes.string,

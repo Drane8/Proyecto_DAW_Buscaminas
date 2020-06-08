@@ -8,6 +8,9 @@ import { NotFound } from "./paginas/NotFound";
 
 import cabecera from "./img/cabecera.jpg";
 
+/**
+ * Componente principal de la aplicacion funciona como SPA de la misma
+ */
 class App extends Component {
   constructor(props) {
     super(props);
@@ -19,12 +22,23 @@ class App extends Component {
     this.cambiarDificil = this.cambiarDificil.bind(this);
   }
 
+  /**
+   * Funcion para cambiar la dificultad a facil
+   */
   cambiarFacil() {
     this.setState(() => ({ dificultad: "Facil" }));
   }
+
+  /**
+   * Funcion para cambiar la dificultad a medio
+   */
   cambiarMedio() {
     this.setState(() => ({ dificultad: "Medio" }));
   }
+
+  /**
+   * Funcion para cambiar la dificultad a dificil
+   */
   cambiarDificil() {
     this.setState(() => ({ dificultad: "Dificil" }));
   }

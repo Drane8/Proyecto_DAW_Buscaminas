@@ -6,6 +6,10 @@ import PopUpInstrucciones from "./PopUpInstrucciones";
 import bandera from "../img/bandera.png";
 import mina from "../img/bomba.png";
 
+/**
+ * Este componente trata de emular un tablero de 
+ * un buscaminas, manejando todos los eventos del mismo
+ */
 export class Tablero extends Component {
   state = {
     infoTablero: this.crearInfoInicial(
@@ -27,6 +31,9 @@ export class Tablero extends Component {
     dificultad: PropTypes.string,
   };
 
+  /**
+   * Funcion que inicia el contador de segundos
+   */
   empezarContador() {
     this.setState({
       contadorOn: true,
@@ -38,11 +45,19 @@ export class Tablero extends Component {
     }, 1000);
   }
 
+  /**
+   * Funcion que para el contador de segundos
+   */
   pararContador() {
     this.setState({ contadorOn: false });
     clearInterval(this.contador);
   }
 
+  /**
+   * Esta funcion devuelve un string con las posiciones de las minas
+   * 
+   * @param {array} info array con informacion del tablero
+   */
   posMinas(info) {
     let minas = "";
 
@@ -56,6 +71,11 @@ export class Tablero extends Component {
     return minas;
   }
 
+  /**
+   * Esta funcion devuelve un string con las posiciones de las banderas
+   * 
+   * @param {array} info array con informacion del tablero
+   */
   posBanderas(info) {
     let banderas = "";
 
@@ -69,6 +89,11 @@ export class Tablero extends Component {
     return banderas;
   }
 
+  /**
+   * Esta funcion devuelve la cantidad de casillas que quedan ocultas
+   * 
+   * @param {array} info array con informacion del tablero
+   */
   ocultasRestantes(info) {
     let ocultas = 0;
 
@@ -82,6 +107,12 @@ export class Tablero extends Component {
     return ocultas;
   }
 
+  /**
+   * Esta funcion devuelve un array con la informacion del tablero
+   * pero con todas las casillas mostradas
+   * 
+   * @param {array} info array con informacion del tablero
+   */
   mostrarTablero(info) {
     for (let i = 0; i < this.props.alto; i++) {
       for (let j = 0; j < this.props.ancho; j++) {
@@ -91,6 +122,14 @@ export class Tablero extends Component {
     return info;
   }
 
+  /**
+   * Esta funcion se encarga de repartir las minas por el tablero
+   * 
+   * @param {int} alto alto del tablero
+   * @param {int} ancho ancho del tablero
+   * @param {int} minas numero de minas
+   * @param {array} info array con la informacion del tablero
+   */
   repartirMinas(alto, ancho, minas, info) {
     let posX = 0;
     let posY = 0;
@@ -107,6 +146,15 @@ export class Tablero extends Component {
     return info;
   }
 
+  /**
+   * Esta funcion se encarga de contar las minas que se encuentran
+   * alrededor de cada casilla para así actualizar el array con informacion
+   * del tablero y devolverlo
+   * 
+   * @param {int} alto alto del tablero
+   * @param {int} ancho ancho del tablero
+   * @param {array} info array con informacion del tablero
+   */
   contarMinasCerca(alto, ancho, info) {
     //recorro el tablero y compruebo las casillas que no son minas
     for (let i = 0; i < alto; i++) {
@@ -131,6 +179,14 @@ export class Tablero extends Component {
     return info;
   }
 
+  /**
+   * Esta funcion crea y devuelve un array con informacion 
+   * de cada casilla del tablero
+   * 
+   * @param {int} alto altura del tablero
+   * @param {int} ancho anchura del tablero
+   * @param {int} minas numero de minas
+   */
   crearInfoInicial(alto, ancho, minas) {
     let info = [];
     for (let i = 0; i < alto; i++) {
@@ -151,6 +207,12 @@ export class Tablero extends Component {
     return info;
   }
 
+  /**
+   * Esta funcion devuelve el valor a mostrar dependiendo del tipo
+   * de casilla que reciba
+   * 
+   * @param {array} casilla array con informacion de la casilla
+   */
   valorCasilla(casilla) {
     if (casilla.marcadaBandera) {
       return <img src={bandera} alt="Bandera"></img>;
@@ -164,6 +226,15 @@ export class Tablero extends Component {
     return null;
   }
 
+  /**
+   * Esta funcion se encarga de mostrar las casillas adyacentes
+   * a la casilla con las posiciones recibidas. Si alguna de estas
+   * es una casilla vacia llama de manera recursiva a esta funcion
+   * 
+   * @param {int} x posicion x de la casilla
+   * @param {int} y posicion y de la casilla
+   * @param {array} info array con informacion del tablero
+   */
   mostrarVacias(x, y, info) {
     for (let i = x - 1; i <= x + 1; i++) {
       for (let j = y - 1; j <= y + 1; j++) {
@@ -182,6 +253,13 @@ export class Tablero extends Component {
     return info;
   }
 
+  /**
+   * Esta funcion se encarga de manejar el funcionamiento del click
+   * izquierdo sobre una casilla
+   * 
+   * @param {int} x posicion x de la casilla
+   * @param {int} y posicion y de la casilla
+   */
   clickIzquierdo(x, y) {
     let info = this.state.infoTablero;
     let casilla = info[x][y];
@@ -214,6 +292,13 @@ export class Tablero extends Component {
     this.setState({ infoTablero: info, fin: final, resultado: resul });
   }
 
+   /**
+   * Esta funcion se encarga de manejar el funcionamiento del click
+   * derecho sobre una casilla
+   * 
+   * @param {int} x posicion x de la casilla
+   * @param {int} y posicion y de la casilla
+   */
   clickDerecho(event, x, y) {
     event.preventDefault();
     let info = this.state.infoTablero;
@@ -254,6 +339,12 @@ export class Tablero extends Component {
     });
   }
 
+  /**
+   * Esta funcion recibe un array con informacion del tablero 
+   * a traves del cual genera cada casilla del tablero
+   * 
+   * @param {array} array array con informacion de tablero
+   */
   creartablero(array) {
     return array.map((fila) => {
       return fila.map((casilla) => {
@@ -273,6 +364,11 @@ export class Tablero extends Component {
     });
   }
 
+  /**
+   * Funcion que reinicia los estados del componente
+   * para volver a empezar una partida
+   * 
+   */
   volverJugar() {
     this.setState({
       infoTablero: this.crearInfoInicial(
