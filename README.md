@@ -11,11 +11,9 @@ Este es un proyecto realizado como proyecto de fin de ciclo, el cual he aprovech
 
 Para poder modificar el proyecto necesitamos tener instalados los siguientes componentes:
 
-Node.js
-
-Git
-
-ReactJS
+* Node.js
+* Git
+* ReactJS
 
 
 ### Instalación 🔧
